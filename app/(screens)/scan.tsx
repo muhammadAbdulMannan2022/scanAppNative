@@ -1,6 +1,8 @@
+import Loading from '@/components/Loading'
 import { Ionicons } from '@expo/vector-icons'
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera'
 import * as ImagePicker from 'expo-image-picker'
+import { useRouter } from 'expo-router'
 import { useRef, useState } from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -9,10 +11,10 @@ export default function App() {
     const [facing, setFacing] = useState<CameraType>('back')
     const [permission, requestPermission] = useCameraPermissions()
     const [photoUri, setPhotoUri] = useState<string | null>(null)
-
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const cameraRef = useRef<any>(null)
+    const router = useRouter()
 
-    // Upload from gallery
     const handlePickImage = async () => {
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -23,7 +25,6 @@ export default function App() {
         }
     }
 
-    // Take photo
     const handleTakePhoto = async () => {
         if (cameraRef.current) {
             const photo = await cameraRef.current.takePictureAsync()
@@ -31,9 +32,18 @@ export default function App() {
         }
     }
 
-    // Reset image
     const resetPhoto = () => {
         setPhotoUri(null)
+    }
+
+    const submitImage = async () => {
+        setIsSubmitting(true)
+        await new Promise(resolve => setTimeout(resolve, 1500))
+        setIsSubmitting(false)
+        // Optionally reset or navigate here
+
+        resetPhoto()
+        router.push("/(screens)/result")
     }
 
     if (!permission) return <View />
@@ -53,6 +63,8 @@ export default function App() {
         )
     }
 
+    if (isSubmitting) return <Loading />
+
     return (
         <SafeAreaView className='h-full'>
             <View className="flex-1 relative px-4 pt-10 items-center justify-center">
@@ -63,48 +75,51 @@ export default function App() {
                         <Text className="text-white">Import</Text>
                     </View>
                 </TouchableOpacity>
-                {/* top title */}
+
+                {/* Title */}
                 <View className='pb-5'>
-                    {
-                        !photoUri ? <Text className='text-2xl text-white'>Take A Picture</Text> : <View className='flex-col items-center justify-center'><Text className='text-2xl text-white'>Captured Image</Text>
+                    {!photoUri ? (
+                        <Text className='text-2xl text-white'>Take A Picture</Text>
+                    ) : (
+                        <View className='flex-col items-center justify-center'>
+                            <Text className='text-2xl text-white'>Captured Image</Text>
                             <View className='border-2 border-green-500 rounded-full p-1 mt-5'>
                                 <Image source={require("@/assets/appImages/check-mark.png")} />
                             </View>
                         </View>
-                    }
+                    )}
                 </View>
-                {/* Photo Preview */}
-                {photoUri ? (
-                    <View className="w-full aspect-[3/4] rounded-xl overflow-hidden border border-gray-700 mx-auto mb-4">
-                        <Image source={{ uri: photoUri }} className="w-full h-full" resizeMode="cover" />
-                    </View>
-                ) : (
-                    <View className="w-full aspect-[3/4] rounded-xl overflow-hidden border border-gray-700 mx-auto mb-4">
-                        <CameraView
-                            className="flex-1"
-                            facing={facing}
-                            ref={cameraRef}
-                        />
-                    </View>
-                )}
 
-                {/* Action Buttons */}
+                {/* Preview */}
+                <View className="w-full aspect-[3/4] rounded-xl overflow-hidden border border-gray-700 mx-auto mb-4">
+                    {photoUri ? (
+                        <Image source={{ uri: photoUri }} className="w-full h-full" resizeMode="cover" />
+                    ) : (
+                        <CameraView className="flex-1" facing={facing} ref={cameraRef} />
+                    )}
+                </View>
+
+                {/* Buttons */}
                 <View className="flex-row justify-around items-center mt-6">
                     {photoUri ? (
-                        <View className='flex-col'>
+                        <View className="flex-col w-full px-4 mt-6">
+                            {/* Retake Button */}
                             <TouchableOpacity
                                 onPress={resetPhoto}
-                                className="bg-gray-700 px-4 py-2 rounded w-full mb-2"
+                                className="bg-white/10 border border-white/20 rounded-full py-3 mb-3 items-center"
                             >
-                                <Text className="text-white">Retake</Text>
+                                <Text className="text-white font-semibold text-base">Retake</Text>
                             </TouchableOpacity>
+
+                            {/* Confirm Button */}
                             <TouchableOpacity
-                                onPress={() => console.log('Submit logic')}
-                                className="bg-blue-600 px-4 py-2 rounded w-full"
+                                onPress={submitImage}
+                                className="bg-[#035683] rounded-full py-3 items-center"
                             >
-                                <Text className="text-white">Confirm</Text>
+                                <Text className="text-white font-semibold text-base">Confirm</Text>
                             </TouchableOpacity>
                         </View>
+
                     ) : (
                         <TouchableOpacity
                             onPress={handleTakePhoto}
