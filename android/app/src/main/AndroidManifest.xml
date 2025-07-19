@@ -27,6 +27,9 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="mynewapp"/>
+        <data android:scheme="exp+mynewapp"/>
+        <data android:scheme="com.amsoft.scan"/>
+        <data android:scheme="exp+com.amsoft.scan"/>
       </intent-filter>
     </activity>
   </application>

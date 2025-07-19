@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "575625011224",
+    "project_id": "native-e4594",
+    "storage_bucket": "native-e4594.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575625011224:android:d2fb74643a1670c827e36d",
+        "android_client_info": {
+          "package_name": "com.amsoft.scan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575625011224-rivr5o5dlmpbej0smkijlop4v44o2kgc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.amsoft.scan",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "575625011224-d05bsds2gt5k7q2gglgv0c1d43prtkb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIESchM5ZuIRfdk1q1jc9AbNkfu7UiJtQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575625011224-d05bsds2gt5k7q2gglgv0c1d43prtkb5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "575625011224-uo4qqu35asm3gfsegcil1p6knf7tq27g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.amsoft.scan"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

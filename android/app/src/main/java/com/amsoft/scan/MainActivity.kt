@@ -1,4 +1,4 @@
-package com.programalltest.myNewApp
+package com.amsoft.scan
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

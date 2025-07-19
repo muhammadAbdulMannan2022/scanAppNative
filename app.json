@@ -1,20 +1,30 @@
 {
   "expo": {
-    "name": "myNewApp",
-    "slug": "myNewApp",
+    "name": "com.amsoft.scan",
+    "slug": "com.amsoft.scan",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mynewapp",
+    "scheme": "com.amsoft.scan",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.amsoft.scan",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.amsoft.scan",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
